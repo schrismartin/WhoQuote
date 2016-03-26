@@ -3,8 +3,50 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
+	<dict>
+		<key>Pods-WhoQuote.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-WhoQuoteTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-WhoQuoteUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SnapKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>06E9E7F2B5172D0B53DE451FBD8C711A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>82E0A23ABF0F68D1D96CCF634DA4FB92</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B56DF652D76AE2098638546B19D5E77D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F0C5DE5209AF659CD2BD2A880248D0C2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>
