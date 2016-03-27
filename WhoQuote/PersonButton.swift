@@ -9,14 +9,10 @@
 import UIKit
 import SnapKit
 
-@objc protocol PersonButtonDelegate {
-    optional func buttonPushed(button: PersonButton)
-}
-
 @IBDesignable class PersonButton: UIView {
     
     // MARK: Public Properties
-    @IBInspectable var person: Person! {
+    @IBInspectable var person: Speaker! {
         didSet {
             if let personImage = person.image {
                 image = personImage
@@ -48,14 +44,17 @@ import SnapKit
         }
     }
     
-    var delegate: PersonButtonDelegate!
-    
     var buttonStatus: ButtonStatus = .Inactive {
         didSet {
-            if buttonStatus == .Active {
+            switch buttonStatus {
+            case .Active:
                 self.backgroundColor = WQ_BUTTON_ACTIVE
-            } else {
+            case .Inactive:
                 self.backgroundColor = WQ_BUTTON_COLOR
+            case .Correct:
+                self.backgroundColor = WQ_BUTTON_CORRECT
+            case .Incorrect:
+                self.backgroundColor = WQ_BUTTON_INCORRECT
             }
         }
     }
@@ -74,14 +73,14 @@ import SnapKit
     var nameLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFontOfSize(18)
-        label.textColor = UIColor.blackColor()
+        label.textColor = WQ_TEXT_COLOR
         return label
     }()
     
     var twitterHandleLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFontOfSize(12)
-        label.textColor = UIColor.grayColor()
+        label.textColor = WQ_DETAIL_TEXT_COLOR
         return label
     }()
     
@@ -104,6 +103,7 @@ import SnapKit
     // MARK: UI Setup
     func setUpView() {
         self.layer.cornerRadius = 8
+        self.backgroundColor = WQ_BUTTON_COLOR
         
         if let imageView = personImageView { self.addSubview(imageView) }
         if let label = nameLabel { self.addSubview(label) }
@@ -126,12 +126,6 @@ import SnapKit
             make.left.equalTo(personImageView.snp_right).offset(10)
             make.right.equalTo(self).offset(-7)
         }
-    }
-    
-    func buttonTapped() {
-        guard let delegate = self.delegate else { return }
-        delegate.buttonPushed?(self)
-        print("Button push detected")
     }
 
     /*

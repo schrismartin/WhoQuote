@@ -21,6 +21,7 @@ class PersonTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        personView.backgroundColor = selected ? WQ_BUTTON_DOWN : WQ_BUTTON_COLOR
     }
 
 }

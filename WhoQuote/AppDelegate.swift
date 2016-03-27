@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // User Interface Settings
         // -- Top Navbar
-        UINavigationBar.appearance().barTintColor = WQ_BACKGROUND_COLOR
+        UINavigationBar.appearance().barTintColor = WQ_BAR_COLOR;
         UINavigationBar.appearance().translucent = true
         UINavigationBar.appearance().tintColor = UIColor.whiteColor();
         UITabBar.appearance().tintColor = WQ_BACKGROUND_COLOR

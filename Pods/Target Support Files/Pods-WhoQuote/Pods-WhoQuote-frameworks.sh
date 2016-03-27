@@ -84,8 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-WhoQuote/Alamofire.framework"
   install_framework "Pods-WhoQuote/SnapKit.framework"
+  install_framework "Pods-WhoQuote/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-WhoQuote/Alamofire.framework"
   install_framework "Pods-WhoQuote/SnapKit.framework"
+  install_framework "Pods-WhoQuote/SwiftyJSON.framework"
 fi

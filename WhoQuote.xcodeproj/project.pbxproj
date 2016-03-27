@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		353605571CA6580D008BD497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353605561CA6580D008BD497 /* AppDelegate.swift */; };
 		3536055C1CA6580D008BD497 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3536055A1CA6580D008BD497 /* Main.storyboard */; };
-		3536055E1CA6580D008BD497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3536055D1CA6580D008BD497 /* Assets.xcassets */; };
 		353605611CA6580D008BD497 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3536055F1CA6580D008BD497 /* LaunchScreen.storyboard */; };
 		3536056C1CA6580D008BD497 /* WhoQuoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3536056B1CA6580D008BD497 /* WhoQuoteTests.swift */; };
 		353605771CA6580D008BD497 /* WhoQuoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353605761CA6580D008BD497 /* WhoQuoteUITests.swift */; };
 		3536058B1CA65D25008BD497 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3536058A1CA65D25008BD497 /* Constants.swift */; };
+		353B58C31CA7697E00C97645 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B58C21CA7697E00C97645 /* LoadingViewController.swift */; };
+		353B58C51CA7752D00C97645 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B58C41CA7752D00C97645 /* User.swift */; };
+		353B58C71CA77E8500C97645 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B58C61CA77E8500C97645 /* Game.swift */; };
+		353B58C91CA77E8E00C97645 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B58C81CA77E8E00C97645 /* Question.swift */; };
+		353B58CB1CA786B900C97645 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B58CA1CA786B900C97645 /* Quote.swift */; };
+		353B58CD1CA7C69900C97645 /* ResultsCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B58CC1CA7C69900C97645 /* ResultsCircle.swift */; };
+		353B58CF1CA7C7E200C97645 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353B58CE1CA7C7E200C97645 /* ResultsTableViewController.swift */; };
 		354D83F21CA66C770066CE01 /* UIImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354D83F11CA66C770066CE01 /* UIImageEffects.swift */; };
 		35798F601CA672F500685C3B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35798F5F1CA672F500685C3B /* CategoryTableViewCell.swift */; };
 		35798F621CA678D900685C3B /* SelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35798F611CA678D900685C3B /* SelectionTableViewController.swift */; };
 		35798F651CA682A600685C3B /* SignPainter-HouseScript.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35798F641CA6824B00685C3B /* SignPainter-HouseScript.ttf */; };
 		35798F661CA682A800685C3B /* SignPainter.otf in Resources */ = {isa = PBXBuildFile; fileRef = 35798F631CA67F9C00685C3B /* SignPainter.otf */; };
-		35798F681CA6D88000685C3B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35798F671CA6D88000685C3B /* Person.swift */; };
+		35798F681CA6D88000685C3B /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35798F671CA6D88000685C3B /* Speaker.swift */; };
 		35798F6A1CA6D93100685C3B /* PersonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35798F691CA6D93100685C3B /* PersonButton.swift */; };
 		35A84DE51CA6F1C800FE084A /* TweetWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A84DE41CA6F1C800FE084A /* TweetWindow.swift */; };
 		35A84DE91CA712A500FE084A /* PersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A84DE81CA712A500FE084A /* PersonTableViewCell.swift */; };
 		35A84DEB1CA7136000FE084A /* QuizTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A84DEA1CA7136000FE084A /* QuizTableViewController.swift */; };
+		35A84DED1CA7400700FE084A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A84DEC1CA7400700FE084A /* Assets.xcassets */; };
+		35A84DEF1CA742CE00FE084A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A84DEE1CA742CE00FE084A /* LoadingView.swift */; };
+		35A84DF11CA7594A00FE084A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A84DF01CA7594A00FE084A /* Category.swift */; };
+		35A84DF31CA75BC100FE084A /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A84DF21CA75BC100FE084A /* StartupViewController.swift */; };
 		6072175B7A4AE8D0A5490858 /* Pods_WhoQuoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8750A641719A055C1E12A3D8 /* Pods_WhoQuoteUITests.framework */; };
 		73A16C5FFB07E506AD3F2E56 /* Pods_WhoQuoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7752E9A617AE77A4BD57A63B /* Pods_WhoQuoteTests.framework */; };
 		76968772DFAD5B70AAE87BB1 /* Pods_WhoQuote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A5BE6959980CE764B38845 /* Pods_WhoQuote.framework */; };
@@ -51,7 +61,6 @@
 		353605531CA6580D008BD497 /* WhoQuote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhoQuote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		353605561CA6580D008BD497 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3536055B1CA6580D008BD497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3536055D1CA6580D008BD497 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		353605601CA6580D008BD497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		353605621CA6580D008BD497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		353605671CA6580D008BD497 /* WhoQuoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhoQuoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,16 +70,27 @@
 		353605761CA6580D008BD497 /* WhoQuoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoQuoteUITests.swift; sourceTree = "<group>"; };
 		353605781CA6580D008BD497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3536058A1CA65D25008BD497 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		353B58C21CA7697E00C97645 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		353B58C41CA7752D00C97645 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		353B58C61CA77E8500C97645 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		353B58C81CA77E8E00C97645 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		353B58CA1CA786B900C97645 /* Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		353B58CC1CA7C69900C97645 /* ResultsCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsCircle.swift; sourceTree = "<group>"; };
+		353B58CE1CA7C7E200C97645 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		354D83F11CA66C770066CE01 /* UIImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageEffects.swift; sourceTree = "<group>"; };
 		35798F5F1CA672F500685C3B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		35798F611CA678D900685C3B /* SelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionTableViewController.swift; sourceTree = "<group>"; };
 		35798F631CA67F9C00685C3B /* SignPainter.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignPainter.otf; sourceTree = "<group>"; };
 		35798F641CA6824B00685C3B /* SignPainter-HouseScript.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SignPainter-HouseScript.ttf"; sourceTree = "<group>"; };
-		35798F671CA6D88000685C3B /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		35798F671CA6D88000685C3B /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		35798F691CA6D93100685C3B /* PersonButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonButton.swift; sourceTree = "<group>"; };
 		35A84DE41CA6F1C800FE084A /* TweetWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetWindow.swift; sourceTree = "<group>"; };
 		35A84DE81CA712A500FE084A /* PersonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewCell.swift; sourceTree = "<group>"; };
 		35A84DEA1CA7136000FE084A /* QuizTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizTableViewController.swift; sourceTree = "<group>"; };
+		35A84DEC1CA7400700FE084A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		35A84DEE1CA742CE00FE084A /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		35A84DF01CA7594A00FE084A /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		35A84DF21CA75BC100FE084A /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		48A5BE6959980CE764B38845 /* Pods_WhoQuote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhoQuote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F13768069AB4BA2BA1F4F56 /* Pods-WhoQuoteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhoQuoteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhoQuoteTests/Pods-WhoQuoteTests.release.xcconfig"; sourceTree = "<group>"; };
 		558C1DB46B56B310DB6632CB /* Pods-WhoQuoteUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhoQuoteUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhoQuoteUITests/Pods-WhoQuoteUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -166,7 +186,12 @@
 		353605841CA65829008BD497 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				35798F671CA6D88000685C3B /* Person.swift */,
+				35798F671CA6D88000685C3B /* Speaker.swift */,
+				35A84DF01CA7594A00FE084A /* Category.swift */,
+				353B58C61CA77E8500C97645 /* Game.swift */,
+				353B58C81CA77E8E00C97645 /* Question.swift */,
+				353B58CA1CA786B900C97645 /* Quote.swift */,
+				353B58C41CA7752D00C97645 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -174,9 +199,9 @@
 		353605851CA6584C008BD497 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3536055D1CA6580D008BD497 /* Assets.xcassets */,
 				3536055A1CA6580D008BD497 /* Main.storyboard */,
 				3536055F1CA6580D008BD497 /* LaunchScreen.storyboard */,
+				35A84DEC1CA7400700FE084A /* Assets.xcassets */,
 				35798F631CA67F9C00685C3B /* SignPainter.otf */,
 				35798F641CA6824B00685C3B /* SignPainter-HouseScript.ttf */,
 				353605621CA6580D008BD497 /* Info.plist */,
@@ -203,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				35798F5F1CA672F500685C3B /* CategoryTableViewCell.swift */,
+				353B58CC1CA7C69900C97645 /* ResultsCircle.swift */,
+				35A84DEE1CA742CE00FE084A /* LoadingView.swift */,
 				35A84DE81CA712A500FE084A /* PersonTableViewCell.swift */,
 				35798F691CA6D93100685C3B /* PersonButton.swift */,
 				35A84DE41CA6F1C800FE084A /* TweetWindow.swift */,
@@ -216,6 +243,9 @@
 				353605561CA6580D008BD497 /* AppDelegate.swift */,
 				35798F611CA678D900685C3B /* SelectionTableViewController.swift */,
 				35A84DEA1CA7136000FE084A /* QuizTableViewController.swift */,
+				35A84DF21CA75BC100FE084A /* StartupViewController.swift */,
+				353B58C21CA7697E00C97645 /* LoadingViewController.swift */,
+				353B58CE1CA7C7E200C97645 /* ResultsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -366,8 +396,8 @@
 				353605611CA6580D008BD497 /* LaunchScreen.storyboard in Resources */,
 				35798F651CA682A600685C3B /* SignPainter-HouseScript.ttf in Resources */,
 				35798F661CA682A800685C3B /* SignPainter.otf in Resources */,
-				3536055E1CA6580D008BD497 /* Assets.xcassets in Resources */,
 				3536055C1CA6580D008BD497 /* Main.storyboard in Resources */,
+				35A84DED1CA7400700FE084A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,16 +545,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35798F681CA6D88000685C3B /* Person.swift in Sources */,
+				35798F681CA6D88000685C3B /* Speaker.swift in Sources */,
 				35798F601CA672F500685C3B /* CategoryTableViewCell.swift in Sources */,
+				35A84DF31CA75BC100FE084A /* StartupViewController.swift in Sources */,
+				353B58C91CA77E8E00C97645 /* Question.swift in Sources */,
+				353B58CF1CA7C7E200C97645 /* ResultsTableViewController.swift in Sources */,
+				353B58CD1CA7C69900C97645 /* ResultsCircle.swift in Sources */,
+				353B58CB1CA786B900C97645 /* Quote.swift in Sources */,
 				354D83F21CA66C770066CE01 /* UIImageEffects.swift in Sources */,
+				35A84DEF1CA742CE00FE084A /* LoadingView.swift in Sources */,
 				353605571CA6580D008BD497 /* AppDelegate.swift in Sources */,
 				35A84DEB1CA7136000FE084A /* QuizTableViewController.swift in Sources */,
+				353B58C31CA7697E00C97645 /* LoadingViewController.swift in Sources */,
+				353B58C51CA7752D00C97645 /* User.swift in Sources */,
 				3536058B1CA65D25008BD497 /* Constants.swift in Sources */,
 				35A84DE51CA6F1C800FE084A /* TweetWindow.swift in Sources */,
 				35798F621CA678D900685C3B /* SelectionTableViewController.swift in Sources */,
 				35A84DE91CA712A500FE084A /* PersonTableViewCell.swift in Sources */,
 				35798F6A1CA6D93100685C3B /* PersonButton.swift in Sources */,
+				35A84DF11CA7594A00FE084A /* Category.swift in Sources */,
+				353B58C71CA77E8500C97645 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

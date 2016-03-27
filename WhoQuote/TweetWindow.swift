@@ -30,7 +30,7 @@ import UIKit
     var quoteLabel: UILabel! = {
         let label = UILabel()
         label.font = UIFont.systemFontOfSize(18)
-        label.textColor = UIColor.blackColor()
+        label.textColor = WQ_TEXT_COLOR
         label.numberOfLines = 0
         return label
     }()
@@ -54,6 +54,7 @@ import UIKit
         // Set Up View
         self.layer.cornerRadius = 8
         self.clipsToBounds = true
+        self.backgroundColor = WQ_BUTTON_COLOR
         
         // Add Labels
         self.addSubview(logoImageView)

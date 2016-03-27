@@ -10,12 +10,13 @@ import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
     
+    internal let internalTintColor = UIColor.blackColor().colorWithAlphaComponent(0.25)
+    
     var backgroundImage: UIImage? {
         didSet {
             if let backgroundImageView = self.backgroundImageView {
                 if let image = self.backgroundImage {
-                    let tintColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-                    self.backgroundImage = image.applyBlurWithRadius(0, tintColor: tintColor, saturationDeltaFactor: 0)
+                    self.backgroundImage = image.applyBlurWithRadius(0, tintColor: internalTintColor, saturationDeltaFactor: 0)
                     backgroundImageView.image = self.backgroundImage
                 }
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
@@ -49,8 +50,7 @@ class CategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView! {
         didSet {
             if let backgroundImage = self.backgroundImage {
-                let tintColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-                backgroundImageView.image = backgroundImage.applyBlurWithRadius(0, tintColor: tintColor, saturationDeltaFactor: 0)
+                backgroundImageView.image = backgroundImage.applyBlurWithRadius(0, tintColor: internalTintColor, saturationDeltaFactor: 0)
             }
         }
     }

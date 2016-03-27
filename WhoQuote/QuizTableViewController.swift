@@ -10,35 +10,70 @@ import UIKit
 
 class QuizTableViewController: UITableViewController {
     
-    var people: [Person] = {
-        return [
-            Person(image: UIImage(named: "hillary")!, name: "Hillary Clinton", twitterHandle: "@HillaryClinton"),
-            Person(image: UIImage(named: "ted")!, name: "Ted Cruz", twitterHandle: "@tedcruz"),
-            Person(image: UIImage(named: "bernie")!, name: "Bernie Sanders", twitterHandle: "@SenSanders"),
-            Person(image: UIImage(named: "donald")!, name: "Donald Trump", twitterHandle: "@realDonaldTrump")
-        ]
-    }()
-    
-    var messages: [Person] = {
-        return [
-            Person(image: UIImage(named: "left")!, name: "Forfeit", twitterHandle: "You will lose the round!"),
-            Person(image: UIImage(named: "right")!, name: "Submit", twitterHandle: "Choose carefully!"),
-            Person(image: UIImage(named: "continue")!, name: "Continue", twitterHandle: "Go on to the next!")
-        ]
-    }()
-    
-    var stage: Int = 0 {
+    var game: Game! {
         didSet {
-            if oldValue != stage {
-                print(stage)
-                if stage == 2 {
-                    // Run submit scripts
-                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
-                }
-                self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+            question = game.getCurrentQuestion()
+            game.listenForScore()
+        }
+    }
+    
+    var gameIndex: Int {
+        get {
+            return game.currentIndex
+        }
+        set {
+            print(gameIndex)
+        }
+    }
+    
+    var question: Question! {
+        didSet {
+            if gameIndex < 5 {
+                self.quote = question.quote.text
+                self.stage = .Initial
+                self.selectedIndex = -1
+                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+            } else {
+                performSegueWithIdentifier(SEGUE_TO_RESULTS, sender: self)
             }
         }
     }
+    
+    var people: [Speaker] {
+        return question.speakers
+    }
+    
+    var messages: [Speaker] = {
+        return [
+            Speaker(id: "123", image: UIImage(named: "left")!, name: "Forfeit", twitterHandle: "You will be returned to the menu!"),
+            Speaker(id: "123", image: UIImage(named: "continue")!, name: "Continue", twitterHandle: "Go on to the next!")
+        ]
+    }()
+    
+    var quote: String! {
+        didSet {
+            if let tw = self.tweetWindow {
+                tw.quote = quote
+            }
+        }
+    }
+    
+    @IBOutlet weak var tweetWindow: TweetWindow! {
+        didSet {
+            if let q = self.quote {
+                tweetWindow.quote = q
+            }
+        }
+    }
+    
+    var stage: QuizStage = .Initial {
+        didSet {
+            if stage != oldValue {
+                tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+            }
+        }
+    }
+    
     var selectedIndex: Int = -1{
         didSet {
             print(selectedIndex)
@@ -55,7 +90,13 @@ class QuizTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.navigationController?.navigationBar.topItem?.title = "WhoQuote"
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "SignPainter-HouseScript", size: 32)!,  NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "SignPainter-HouseScript", size: 32)!,  NSForegroundColorAttributeName: WQ_HIGHLIGHT_COLOR]
+        
+        self.tableView.backgroundColor = WQ_BACKGROUND_COLOR
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        self.game.quitListeningForScore()
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,24 +119,38 @@ class QuizTableViewController: UITableViewController {
         if indexPath.section == 0 {
             cell.personView.person = people[indexPath.row]
         } else {
-            cell.personView.person = messages[stage]
+            cell.personView.person = messages[stage.rawValue]
         }
             
         return cell
     }
     
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.section == 0 && self.stage == .Continue { return false } else { return true }
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! PersonTableViewCell
         if indexPath.section == 0 {
-            for i in 0...people.count-1 {
-                let newIndexPath = NSIndexPath(forRow: i, inSection: 0)
-                let cell = tableView.cellForRowAtIndexPath(newIndexPath) as! PersonTableViewCell
-                cell.personView.buttonStatus = .Inactive
+            switch stage {
+            case .Initial:
+                // Exit out
+                self.stage = .Continue
+                print("Selected Index \(indexPath.row)")
+                question.submitIndex(indexPath.row, withCallback: { (correct) in
+                    print("Correct: \(correct)")
+                    if correct == true {
+                        cell.personView.buttonStatus = .Correct
+                    } else {
+                        cell.personView.buttonStatus = .Incorrect
+                        let speakerId = self.question.quote.speakerId
+                        self.highlightCellWithSpeakerId(speakerId)
+                    }
+                })
+            case .Continue:
+                // Go to next question
+                break
             }
-            
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! PersonTableViewCell
-            self.selectedIndex = indexPath.row
-            self.stage = 1
-            cell.personView.buttonStatus = .Active
         }
         
         if indexPath.section == 1 {
@@ -105,21 +160,37 @@ class QuizTableViewController: UITableViewController {
             
             self.selectedIndex = -1
             
+            print(stage)
+            
             switch stage {
-            case 0:
+            case .Initial:
                 // Exit out
-                performSegueWithIdentifier(SEGUE_UNWIND_MENU, sender: self)
-                break
-            case 1:
-                self.stage = 2
-            case 2:
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.performSegueWithIdentifier(SEGUE_UNWIND_FROM_GAME, sender: self)
+                })
+            case .Continue:
                 // Go to next question
-                self.stage = 0
-                break
-            default:
+                self.stage = .Initial
+                self.question = self.game.continueToNextQuestion()
                 break
             }
+            
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
+    }
+    
+    func highlightCellWithSpeakerId(id: String) {
+        for i in 0...3 {
+            let indexPath = NSIndexPath(forRow: i, inSection: 0)
+            if people[i].id == id {
+                let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! PersonTableViewCell
+                cell.personView.buttonStatus = .Correct
+            }
+        }
+    }
+    
+    func proceedToResults() {
+        
     }
 
     /*
@@ -157,14 +228,20 @@ class QuizTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == SEGUE_UNWIND_FROM_GAME {
+            let destination = segue.destinationViewController as! LoadingViewController
+            destination.loadingState = .Exiting
+        }
+        if segue.identifier == SEGUE_TO_RESULTS {
+            let destination = segue.destinationViewController as! ResultsTableViewController
+            destination.game = self.game
+        }
     }
-    */
 
 }
