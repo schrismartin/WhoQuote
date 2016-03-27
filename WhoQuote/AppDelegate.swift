@@ -16,6 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // User Interface Settings
+        // -- Top Navbar
+        UINavigationBar.appearance().barTintColor = WQ_BAR_COLOR;
+        UINavigationBar.appearance().translucent = true
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor();
+        UITabBar.appearance().tintColor = WQ_BACKGROUND_COLOR
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSBackgroundColorAttributeName: UIColor.whiteColor()
+        ]
+        
+        
+        
         return true
     }
 

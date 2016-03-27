@@ -1,0 +1,6 @@
+framework module Pods_WhoQuote {
+  umbrella header "Pods-WhoQuote-umbrella.h"
+
+  export *
+  module * { export * }
+}
