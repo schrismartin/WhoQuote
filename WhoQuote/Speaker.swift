@@ -41,8 +41,9 @@ class Speaker: NSObject {
             self.image = pic
         } else {
             if let URL = imageURL {
-                Alamofire.request(.GET, URL).response(completionHandler: { (request, response, data, error) in
-                    self.image = UIImage(data: data!, scale: 1)
+                Alamofire.request(URL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response(completionHandler: { (response) in
+                    
+                    self.image = UIImage(data: response.data!, scale: 1)
                     self.saveImageForUserId(self.id, image: self.image)
                 })
             }
@@ -50,35 +51,35 @@ class Speaker: NSObject {
         
     }
     
-    func saveImageForUserId(id: String, image: UIImage) {
+    func saveImageForUserId(_ id: String, image: UIImage) {
         let imageName = id + ".png"
         let imagePath = fileInDocumentsDirectory(imageName)
         self.saveImage(image, path: imagePath)
     }
     
-    func loadImageForUserId(id: String) -> UIImage? {
+    func loadImageForUserId(_ id: String) -> UIImage? {
         let imageName = id + ".png"
         let imagePath = fileInDocumentsDirectory(imageName)
         return loadImageFromPath(imagePath)
     }
     
-    func saveImage(image: UIImage, path: String) -> Bool {
+    func saveImage(_ image: UIImage, path: String) -> Bool {
         let pngImageData = UIImagePNGRepresentation(image)
-        let result = pngImageData!.writeToFile(path, atomically: true)
+        let result = (try? pngImageData!.write(to: URL(fileURLWithPath: path), options: [.atomic])) != nil
         return result
     }
     
-    func getDocumentsURL() -> NSURL {
-        let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+    func getDocumentsURL() -> URL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return documentsURL
     }
     
-    func fileInDocumentsDirectory(filename: String) -> String {
-        let fileURL = getDocumentsURL().URLByAppendingPathComponent(filename)
-        return fileURL.path!
+    func fileInDocumentsDirectory(_ filename: String) -> String {
+        let fileURL = getDocumentsURL().appendingPathComponent(filename)
+        return fileURL.path
     }
     
-    func loadImageFromPath(path: String) -> UIImage? {
+    func loadImageFromPath(_ path: String) -> UIImage? {
         let image = UIImage(contentsOfFile: path)
         return image
         

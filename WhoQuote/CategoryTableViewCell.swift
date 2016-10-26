@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
     
-    internal let internalTintColor = UIColor.blackColor().colorWithAlphaComponent(0.25)
+    internal let internalTintColor = UIColor.black.withAlphaComponent(0.25)
     
     var backgroundImage: UIImage? {
         didSet {
@@ -19,7 +19,7 @@ class CategoryTableViewCell: UITableViewCell {
                     self.backgroundImage = image.applyBlurWithRadius(0, tintColor: internalTintColor, saturationDeltaFactor: 0)
                     backgroundImageView.image = self.backgroundImage
                 }
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: { () -> Void in
                     // Perform this in background
                     if let image = self.backgroundImage {
                         self.blurredImage = image.applyLightEffect()
@@ -29,7 +29,7 @@ class CategoryTableViewCell: UITableViewCell {
         }
     }
     
-    private var blurredImage: UIImage!
+    fileprivate var blurredImage: UIImage!
     
     var labelName: String! {
         didSet {
@@ -75,13 +75,13 @@ class CategoryTableViewCell: UITableViewCell {
         imagePositionInitial = yPosition
     }
     
-    func setBackgroundOffset(offset:CGFloat) {
+    func setBackgroundOffset(_ offset:CGFloat) {
         let boundOffset = max(0, min(1, offset))
         let pixelOffset = (1-boundOffset)*2*parallaxFactor
         self.yPosition = imagePositionInitial - pixelOffset
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -12,8 +12,8 @@ class ResultsTableViewController: UITableViewController {
     
     @IBOutlet weak var gameMessage: UILabel!
     
-    @IBAction func continueAction(sender: AnyObject) {
-        self.performSegueWithIdentifier(SEGUE_TO_MAIN_FROM_RESULTS, sender: self)
+    @IBAction func continueAction(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: SEGUE_TO_MAIN_FROM_RESULTS, sender: self)
     }
     
     var game: Game! {
@@ -88,22 +88,22 @@ class ResultsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return gameType.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CELL_RESULT, forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_RESULT, for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = gameType[indexPath.row]
-        cell.detailTextLabel!.text = score[indexPath.row]
+        cell.textLabel?.text = gameType[(indexPath as NSIndexPath).row]
+        cell.detailTextLabel!.text = score[(indexPath as NSIndexPath).row]
 
         return cell
     }
@@ -146,12 +146,12 @@ class ResultsTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == SEGUE_TO_MAIN_FROM_RESULTS {
-            let destination = segue.destinationViewController as! LoadingViewController
-            destination.loadingState = .Exiting
+            let destination = segue.destination as! LoadingViewController
+            destination.loadingState = .exiting
         }
     }
 

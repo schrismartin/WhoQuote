@@ -4,19 +4,17 @@
 use_frameworks!
 
 target 'WhoQuote' do
-pod 'SnapKit', '~> 0.15.0'
-pod 'Alamofire', '~> 3.0'
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+pod 'SnapKit', '~> 3.0'
+pod 'Alamofire', '~> 4.0'
+pod 'SwiftyJSON'
 
 end
 
 target 'WhoQuoteTests' do
-pod 'SnapKit', '~> 0.15.0'
 
 end
 
 target 'WhoQuoteUITests' do
-pod 'SnapKit', '~> 0.15.0'
 
 end
 

@@ -30,11 +30,11 @@ class QuizTableViewController: UITableViewController {
         didSet {
             if gameIndex < 5 {
                 self.quote = question.quote.text
-                self.stage = .Initial
+                self.stage = .initial
                 self.selectedIndex = -1
-                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
             } else {
-                performSegueWithIdentifier(SEGUE_TO_RESULTS, sender: self)
+                performSegue(withIdentifier: SEGUE_TO_RESULTS, sender: self)
             }
         }
     }
@@ -66,10 +66,10 @@ class QuizTableViewController: UITableViewController {
         }
     }
     
-    var stage: QuizStage = .Initial {
+    var stage: QuizStage = .initial {
         didSet {
             if stage != oldValue {
-                tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+                tableView.reloadSections(IndexSet(integer: 1), with: .none)
             }
         }
     }
@@ -95,7 +95,7 @@ class QuizTableViewController: UITableViewController {
         self.tableView.backgroundColor = WQ_BACKGROUND_COLOR
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         self.game.quitListeningForScore()
     }
 
@@ -104,20 +104,20 @@ class QuizTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 4 : 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CELL_PERSON, forIndexPath: indexPath) as! PersonTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_PERSON, for: indexPath) as! PersonTableViewCell
 
         // Configure the cell...
-        if indexPath.section == 0 {
-            cell.personView.person = people[indexPath.row]
+        if (indexPath as NSIndexPath).section == 0 {
+            cell.personView.person = people[(indexPath as NSIndexPath).row]
         } else {
             cell.personView.person = messages[stage.rawValue]
         }
@@ -125,66 +125,66 @@ class QuizTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.section == 0 && self.stage == .Continue { return false } else { return true }
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if (indexPath as NSIndexPath).section == 0 && self.stage == .continue { return false } else { return true }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! PersonTableViewCell
-        if indexPath.section == 0 {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! PersonTableViewCell
+        if (indexPath as NSIndexPath).section == 0 {
             switch stage {
-            case .Initial:
+            case .initial:
                 // Exit out
-                self.stage = .Continue
-                print("Selected Index \(indexPath.row)")
-                question.submitIndex(indexPath.row, withCallback: { (correct) in
+                self.stage = .continue
+                print("Selected Index \((indexPath as NSIndexPath).row)")
+                question.submitIndex((indexPath as NSIndexPath).row, withCallback: { (correct) in
                     print("Correct: \(correct)")
                     if correct == true {
-                        cell.personView.buttonStatus = .Correct
+                        cell.personView.buttonStatus = .correct
                     } else {
-                        cell.personView.buttonStatus = .Incorrect
+                        cell.personView.buttonStatus = .incorrect
                         let speakerId = self.question.quote.speakerId
                         self.highlightCellWithSpeakerId(speakerId)
                     }
                 })
-            case .Continue:
+            case .continue:
                 // Go to next question
                 break
             }
         }
         
-        if indexPath.section == 1 {
-            let indexPath = NSIndexPath(forRow: selectedIndex != -1 ? selectedIndex : 0, inSection: 0)
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! PersonTableViewCell
-            cell.personView.buttonStatus = .Inactive
+        if (indexPath as NSIndexPath).section == 1 {
+            let indexPath = IndexPath(row: selectedIndex != -1 ? selectedIndex : 0, section: 0)
+            let cell = tableView.cellForRow(at: indexPath) as! PersonTableViewCell
+            cell.personView.buttonStatus = .inactive
             
             self.selectedIndex = -1
             
             print(stage)
             
             switch stage {
-            case .Initial:
+            case .initial:
                 // Exit out
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.performSegueWithIdentifier(SEGUE_UNWIND_FROM_GAME, sender: self)
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.performSegue(withIdentifier: SEGUE_UNWIND_FROM_GAME, sender: self)
                 })
-            case .Continue:
+            case .continue:
                 // Go to next question
-                self.stage = .Initial
+                self.stage = .initial
                 self.question = self.game.continueToNextQuestion()
                 break
             }
             
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
-    func highlightCellWithSpeakerId(id: String) {
+    func highlightCellWithSpeakerId(_ id: String) {
         for i in 0...3 {
-            let indexPath = NSIndexPath(forRow: i, inSection: 0)
+            let indexPath = IndexPath(row: i, section: 0)
             if people[i].id == id {
-                let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! PersonTableViewCell
-                cell.personView.buttonStatus = .Correct
+                let cell = self.tableView.cellForRow(at: indexPath) as! PersonTableViewCell
+                cell.personView.buttonStatus = .correct
             }
         }
     }
@@ -231,15 +231,15 @@ class QuizTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == SEGUE_UNWIND_FROM_GAME {
-            let destination = segue.destinationViewController as! LoadingViewController
-            destination.loadingState = .Exiting
+            let destination = segue.destination as! LoadingViewController
+            destination.loadingState = .exiting
         }
         if segue.identifier == SEGUE_TO_RESULTS {
-            let destination = segue.destinationViewController as! ResultsTableViewController
+            let destination = segue.destination as! ResultsTableViewController
             destination.game = self.game
         }
     }

@@ -12,17 +12,17 @@ import SwiftyJSON
 
 class Quote: NSObject {
     
-    private var _text: String!
+    fileprivate var _text: String!
     var text: String {
         return _text
     }
     
-    private var _source: String!
+    fileprivate var _source: String!
     var source: String {
         return _source
     }
     
-    private var _speakerId: String!
+    fileprivate var _speakerId: String!
     var speakerId: String {
         return _speakerId
     }

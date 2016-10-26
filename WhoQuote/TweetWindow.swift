@@ -29,7 +29,7 @@ import UIKit
     
     var quoteLabel: UILabel! = {
         let label = UILabel()
-        label.font = UIFont.systemFontOfSize(18)
+        label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = WQ_TEXT_COLOR
         label.numberOfLines = 0
         return label

@@ -20,14 +20,14 @@ class StartupViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let URL = HOST + CATEGORY
-        Alamofire.request(.GET, URL).responseJSON { response in
+        Alamofire.request(URL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             if let value = response.result.value {
                 let json = JSON(value)
                 for (_, item) in json {
                     self.categories.append(Category(json: item))
                 }
                 print(self.categories.map { $0.name })
-                self.performSegueWithIdentifier(SEGUE_TO_MAIN, sender: self)
+                self.performSegue(withIdentifier: SEGUE_TO_MAIN, sender: self)
             }
         }
     }
@@ -41,8 +41,8 @@ class StartupViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let nav = segue.destinationViewController as! UINavigationController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nav = segue.destination as! UINavigationController
         let destination = nav.topViewController as! SelectionTableViewController
         
         destination.categories = self.categories

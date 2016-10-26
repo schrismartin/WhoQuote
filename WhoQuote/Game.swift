@@ -14,7 +14,7 @@ class Game: NSObject {
     
     var questions: [Question]! {
         didSet {
-            questions.sortInPlace { $0.id < $1.id }
+            questions.sort { $0.id < $1.id }
         }
     }
     
@@ -41,13 +41,13 @@ class Game: NSObject {
     }
     
     func listenForScore() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(logWin), name: GAME_WON, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(logLoss), name: GAME_LOST, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(logWin), name: NSNotification.Name(rawValue: GAME_WON), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(logLoss), name: NSNotification.Name(rawValue: GAME_LOST), object: nil)
     }
     
     func quitListeningForScore() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: GAME_WON, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: GAME_LOST, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: GAME_WON), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: GAME_LOST), object: nil)
     }
     
     func logWin() {
@@ -66,10 +66,12 @@ class Game: NSObject {
         }
     }
     
-    func populateWithId(id: String) {
+    func populateWithId(_ id: String) {
         self.questions = [Question]()
         let gameURL = HOST + GAME + id
-        Alamofire.request(.GET, gameURL).responseJSON { response in
+        
+        Alamofire.request(gameURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        .responseJSON { (response) in
             let gameJSON = JSON(response.result.value!)
             
             // Get Category

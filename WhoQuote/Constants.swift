@@ -11,11 +11,10 @@ import UIKit
 
 // URL
 //let HOST = "http://localhost:1337/api/" // Dev
-let HOST = "http://159.203.146.240/api/" // Prod
+let HOST = "http://whoquote.tk/api/" // Prod
 let GAME = "game/"
 let CATEGORY = "category/"
 let QUESTION = "question/"
-
 
 // View Controllers
 let VIEW_CONTROLLER_SELECT_CATEGORY = "SelectCategoryViewController"
@@ -69,26 +68,26 @@ let WQ_TEXT_COLOR = UIColor(red: 41/255, green: 47/255, blue: 51/255, alpha: 1)
 let WQ_DETAIL_TEXT_COLOR = UIColor(red: 102/255, green: 117/255, blue: 127/255, alpha: 1)
 
 enum ButtonStatus {
-    case Active
-    case Inactive
-    case Correct
-    case Incorrect
+    case active
+    case inactive
+    case correct
+    case incorrect
 }
 
 enum LoadingState {
-    case Entering
-    case Exiting
+    case entering
+    case exiting
     mutating func swap() {
         switch self {
-        case .Entering:
-            self = .Exiting
-        case .Exiting:
-            self = .Entering
+        case .entering:
+            self = .exiting
+        case .exiting:
+            self = .entering
         }
     }
 }
 
 enum QuizStage: Int {
-    case Initial = 0
-    case Continue = 1
+    case initial = 0
+    case `continue` = 1
 }

@@ -12,10 +12,10 @@ import Alamofire
 
 class Category: NSObject {
     
-    private var _name: String!
-    private var _slug: String!
-    private var _imageURL: String!
-    private var _image: UIImage!
+    fileprivate var _name: String!
+    fileprivate var _slug: String!
+    fileprivate var _imageURL: String!
+    fileprivate var _image: UIImage!
     
     var name: String! {
         get {
@@ -53,10 +53,13 @@ class Category: NSObject {
         // Check to see if picture exists
         if let pic = loadImageForUserId(self.name) {
             self._image = pic
+            print("Category Picture Exists")
         } else {
+            print("Category Picture Does Not Exist")
             if let URL = _imageURL {
-                Alamofire.request(.GET, URL).response(completionHandler: { (request, response, data, error) in
-                    self._image = UIImage(data: data!, scale: 1)
+                Alamofire.request(URL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+                .response(completionHandler: { (response) in
+                    self._image = UIImage(data: response.data!, scale: 1)
                     self.saveImageForUserId(self.name, image: self._image)
                 })
             }
@@ -64,35 +67,35 @@ class Category: NSObject {
         
     }
     
-    func saveImageForUserId(id: String, image: UIImage) {
+    func saveImageForUserId(_ id: String, image: UIImage) {
         let imageName = id + ".png"
         let imagePath = fileInDocumentsDirectory(imageName)
         self.saveImage(image, path: imagePath)
     }
     
-    func loadImageForUserId(id: String) -> UIImage? {
+    func loadImageForUserId(_ id: String) -> UIImage? {
         let imageName = id + ".png"
         let imagePath = fileInDocumentsDirectory(imageName)
         return loadImageFromPath(imagePath)
     }
     
-    func saveImage(image: UIImage, path: String) -> Bool {
+    func saveImage(_ image: UIImage, path: String) -> Bool {
         let pngImageData = UIImagePNGRepresentation(image)
-        let result = pngImageData!.writeToFile(path, atomically: true)
+        let result = (try? pngImageData!.write(to: URL(fileURLWithPath: path), options: [.atomic])) != nil
         return result
     }
     
-    func getDocumentsURL() -> NSURL {
-        let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+    func getDocumentsURL() -> URL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return documentsURL
     }
     
-    func fileInDocumentsDirectory(filename: String) -> String {
-        let fileURL = getDocumentsURL().URLByAppendingPathComponent(filename)
-        return fileURL.path!
+    func fileInDocumentsDirectory(_ filename: String) -> String {
+        let fileURL = getDocumentsURL().appendingPathComponent(filename)
+        return fileURL.path
     }
     
-    func loadImageFromPath(path: String) -> UIImage? {
+    func loadImageFromPath(_ path: String) -> UIImage? {
         let image = UIImage(contentsOfFile: path)
         return image
         

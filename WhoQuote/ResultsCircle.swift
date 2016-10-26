@@ -13,10 +13,10 @@ import UIKit
     
     @IBInspectable var borderColor: UIColor? {
         get {
-            return UIColor(CGColor: self.layer.borderColor!)
+            return UIColor(cgColor: self.layer.borderColor!)
         }
         set(val) {
-            self.layer.borderColor = val?.CGColor
+            self.layer.borderColor = val?.cgColor
         }
     }
     
@@ -50,7 +50,7 @@ import UIKit
         let l = UILabel()
         l.font = UIFont(name: "SignPainter-HouseScript", size: 70)!
         l.textColor = WQ_TEXT_COLOR
-        l.textAlignment = .Center
+        l.textAlignment = .center
         return l
     }()
 

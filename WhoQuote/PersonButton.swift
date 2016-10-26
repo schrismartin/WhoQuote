@@ -44,16 +44,16 @@ import SnapKit
         }
     }
     
-    var buttonStatus: ButtonStatus = .Inactive {
+    var buttonStatus: ButtonStatus = .inactive {
         didSet {
             switch buttonStatus {
-            case .Active:
+            case .active:
                 self.backgroundColor = WQ_BUTTON_ACTIVE
-            case .Inactive:
+            case .inactive:
                 self.backgroundColor = WQ_BUTTON_COLOR
-            case .Correct:
+            case .correct:
                 self.backgroundColor = WQ_BUTTON_CORRECT
-            case .Incorrect:
+            case .incorrect:
                 self.backgroundColor = WQ_BUTTON_INCORRECT
             }
         }
@@ -62,9 +62,9 @@ import SnapKit
     // MARK: UI Elements
     
     var personImageView: UIImageView! = {
-        let frame = CGRectMake(4, 4, 42, 42)
+        let frame = CGRect(x: 4, y: 4, width: 42, height: 42)
         let imageView = UIImageView(frame: frame)
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         return imageView
@@ -72,14 +72,14 @@ import SnapKit
     
     var nameLabel: UILabel! = {
         let label = UILabel()
-        label.font = UIFont.systemFontOfSize(18)
+        label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = WQ_TEXT_COLOR
         return label
     }()
     
     var twitterHandleLabel: UILabel! = {
         let label = UILabel()
-        label.font = UIFont.systemFontOfSize(12)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = WQ_DETAIL_TEXT_COLOR
         return label
     }()
@@ -110,7 +110,7 @@ import SnapKit
         if let label = twitterHandleLabel { self.addSubview(label) }
         
         // Adjust autolayout constraints
-        self.personImageView.snp_makeConstraints(closure: { (make) in
+        self.personImageView.snp_makeConstraints({ (make) in
             make.top.equalTo(self).offset(4)
             make.left.equalTo(self).offset(4)
             make.bottom.equalTo(self).offset(-4)

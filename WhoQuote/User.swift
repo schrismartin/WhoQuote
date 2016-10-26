@@ -12,10 +12,10 @@ class User : NSObject{
     
     static let usr = User()
     
-    private var _email: String!
-    private var _id: String!
-    private var _name: String!
-    private var _twitterHandle: String!
+    fileprivate var _email: String!
+    fileprivate var _id: String!
+    fileprivate var _name: String!
+    fileprivate var _twitterHandle: String!
     
     var email: String {
         return _email

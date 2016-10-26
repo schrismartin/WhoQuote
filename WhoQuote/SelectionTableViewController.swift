@@ -22,7 +22,7 @@ class SelectionTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.tableView.backgroundColor = WQ_BACKGROUND_COLOR
-        self.tableView.separatorStyle = .None
+        self.tableView.separatorStyle = .none
         
         self.navigationController?.navigationBar.topItem?.title = "WhoQuote"
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "SignPainter-HouseScript", size: 32)!,  NSForegroundColorAttributeName: WQ_HIGHLIGHT_COLOR]
@@ -35,56 +35,56 @@ class SelectionTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return categories.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CELL_CATEGORY, forIndexPath: indexPath) as! CategoryTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_CATEGORY, for: indexPath) as! CategoryTableViewCell
 
         // Configure the cell...
-        cell.labelName = categories[indexPath.row].name
-        cell.backgroundImage = categories[indexPath.row].image
+        cell.labelName = categories[(indexPath as NSIndexPath).row].name
+        cell.backgroundImage = categories[(indexPath as NSIndexPath).row].image
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "CATEGORIES"
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (scrollView == self.tableView) {
             guard let indexPathsForVisiableRows = self.tableView.indexPathsForVisibleRows else { return }
             for indexPath in indexPathsForVisiableRows {
-                self.setCellImageOffset(self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryTableViewCell, indexPath: indexPath)
+                self.setCellImageOffset(self.tableView.cellForRow(at: indexPath) as! CategoryTableViewCell, indexPath: indexPath)
             }
         }
     }
     
-    func setCellImageOffset(cell: CategoryTableViewCell, indexPath: NSIndexPath) {
-        let cellFrame = self.tableView.rectForRowAtIndexPath(indexPath)
-        let cellFrameInTable = self.tableView.convertRect(cellFrame, toView:self.tableView.superview)
+    func setCellImageOffset(_ cell: CategoryTableViewCell, indexPath: IndexPath) {
+        let cellFrame = self.tableView.rectForRow(at: indexPath)
+        let cellFrameInTable = self.tableView.convert(cellFrame, to:self.tableView.superview)
         let cellOffset = cellFrameInTable.origin.y + cellFrameInTable.size.height
         let tableHeight = self.tableView.bounds.size.height + cellFrameInTable.size.height
         let cellOffsetFactor = cellOffset / tableHeight
         cell.setBackgroundOffset(cellOffsetFactor)
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let destination = storyboard?.instantiateViewControllerWithIdentifier(VIEW_CONTROLLER_LOADING) as! LoadingViewController
-        destination.loadingState = .Entering
-        destination.target = categories[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let destination = storyboard?.instantiateViewController(withIdentifier: VIEW_CONTROLLER_LOADING) as! LoadingViewController
+        destination.loadingState = .entering
+        destination.target = categories[(indexPath as NSIndexPath).row]
         print("Passed \(destination.target) to target")
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.presentViewController(destination, animated: true, completion: nil)
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.present(destination, animated: true, completion: nil)
         })
     }
 

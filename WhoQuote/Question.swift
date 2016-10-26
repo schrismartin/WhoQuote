@@ -12,10 +12,10 @@ import SwiftyJSON
 
 class Question: NSObject {
     
-    private var _id: String!
-    private var _quote: Quote!
-    private var _speakers: [Speaker]!
-    private var _correct: Bool?
+    fileprivate var _id: String!
+    fileprivate var _quote: Quote!
+    fileprivate var _speakers: [Speaker]!
+    fileprivate var _correct: Bool?
     
     var id: String {
         return _id
@@ -43,7 +43,7 @@ class Question: NSObject {
         if let id = json["id"].string {
             self._id = id
             let questionURL = HOST + QUESTION + id
-            Alamofire.request(.GET, questionURL).responseJSON { response in
+            Alamofire.request(questionURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
                 let questionJSON = JSON(response.result.value!)
                 self.getQuote(questionJSON)
                 
@@ -51,51 +51,56 @@ class Question: NSObject {
                 self.getSpeakers(speakersJSON)
                 
                 self.submitDoneAlert()
-            }
+            })
         }
     }
     
-    func getQuote(json: JSON) {
+    func getQuote(_ json: JSON) {
         self._quote = Quote(json: json["quote"])
     }
     
-    func getSpeakers(json: JSON) {
+    func getSpeakers(_ json: JSON) {
         for (_, speakerJSON) in json {
             let speaker = Speaker(json: speakerJSON)
             self._speakers.append(speaker)
         }
     }
     
-    func submitIndex(index: Int, withCallback callback: (correct: Bool)->()) {
-        let URL = HOST + QUESTION + _id
+    func submitIndex(_ index: Int, withCallback callback: @escaping (_ correct: Bool)->()) {
+        let url = HOST + QUESTION + _id
+        let parameters = ["selectedSpeaker": speakers[index].id]
         print(speakers[index].id)
-        Alamofire.request(.PUT, URL, parameters: ["selectedSpeaker": speakers[index].id])
-            .responseJSON { response in
-                if let value = response.result.value {
-                    let questionJSON = JSON(value)
-                    if let correct = questionJSON["isCorrect"].bool {
-                        self._correct = correct
-                        if correct == true { self.submitWinAlert() } else { self.submitLossAlert() }
-                        callback(correct: correct)
+        Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+            if let value = response.result.value {
+                let questionJSON = JSON(value)
+                if let correct = questionJSON["isCorrect"].bool {
+                    self._correct = correct
+                    
+                    if correct == true {
+                        self.submitWinAlert()
                     } else {
-                        print("PROBLEM")
+                        self.submitLossAlert()
                     }
+                    callback(correct)
+                } else {
+                    print("PROBLEM")
                 }
+            }
         }
     }
     
-    private func submitDoneAlert() {
-        let notification = NSNotification(name: ASYNC_QUESTION_FINISHED, object: nil)
-        NSNotificationCenter.defaultCenter().postNotification(notification)
+    fileprivate func submitDoneAlert() {
+        let notification = Notification(name: Notification.Name(rawValue: ASYNC_QUESTION_FINISHED), object: nil)
+        NotificationCenter.default.post(notification)
     }
     
-    private func submitWinAlert() {
-        let notification = NSNotification(name: GAME_WON, object: nil)
-        NSNotificationCenter.defaultCenter().postNotification(notification)
+    fileprivate func submitWinAlert() {
+        let notification = Notification(name: Notification.Name(rawValue: GAME_WON), object: nil)
+        NotificationCenter.default.post(notification)
     }
     
-    private func submitLossAlert() {
-        let notification = NSNotification(name: GAME_LOST, object: nil)
-        NSNotificationCenter.defaultCenter().postNotification(notification)
+    fileprivate func submitLossAlert() {
+        let notification = Notification(name: Notification.Name(rawValue: GAME_LOST), object: nil)
+        NotificationCenter.default.post(notification)
     }
 }
