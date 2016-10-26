@@ -1,5 +1,5 @@
 //
-//  Category.swift
+//  Speaker.swift
 //  WhoQuote
 //
 //  Created by Chris Martin on 3/26/16.
@@ -10,57 +10,41 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-class Category: NSObject {
-    
-    fileprivate var _name: String!
-    fileprivate var _slug: String!
-    fileprivate var _imageURL: String!
-    fileprivate var _image: UIImage!
-    
-    var name: String! {
-        get {
-            return _name
-        }
-    }
-    
-    var slug: String! {
-        get {
-            return _slug
-        }
-    }
-    
-    var image: UIImage {
-        return _image != nil ? _image : UIImage()
-    }
+class Speaker: NSObject {
+    var id: String!
+    var image: UIImage!
+    var imageURL: String!
+    var name: String!
+    var twitterHandle: String!
     
     override init() {
         super.init()
     }
     
-    convenience init(name: String, slug: String) {
+    convenience init(id: String, image: UIImage, name: String?, twitterHandle: String?) {
         self.init()
-        
-        self._name = name
-        self._slug = slug
+        self.id = id
+        self.image = image
+        if let str = name { self.name = str }
+        if let str = twitterHandle { self.twitterHandle = str }
     }
     
     convenience init(json: JSON) {
         self.init()
-        if let str = json["name"].string { _name = str }
-        if let str = json["slug"].string { _slug = str }
-        if let str = json["imageURL"].string { _imageURL = str }
+        if let str = json["name"].string { name = str }
+        if let str = json["twitterId"].string { id = str }
+        if let str = json["twitterHandle"].string { twitterHandle = str }
+        if let str = json["imageURL"].string { imageURL = str }
         
         // Check to see if picture exists
-        if let pic = loadImageForUserId(self.name) {
-            self._image = pic
-            print("Category Picture Exists")
+        if let pic = loadImageForUserId(self.id) {
+            self.image = pic
         } else {
-            print("Category Picture Does Not Exist")
-            if let URL = _imageURL {
-                Alamofire.request(URL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-                .response(completionHandler: { (response) in
-                    self._image = UIImage(data: response.data!, scale: 1)
-                    self.saveImageForUserId(self.name, image: self._image)
+            if let URL = imageURL {
+                Alamofire.request(URL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response(completionHandler: { (response) in
+                    
+                    self.image = UIImage(data: response.data!, scale: 1)
+                    self.saveImageForUserId(self.id, image: self.image)
                 })
             }
         }
@@ -70,7 +54,7 @@ class Category: NSObject {
     func saveImageForUserId(_ id: String, image: UIImage) {
         let imageName = id + ".png"
         let imagePath = fileInDocumentsDirectory(imageName)
-        self.saveImage(image, path: imagePath)
+        _ = self.saveImage(image, path: imagePath)
     }
     
     func loadImageForUserId(_ id: String) -> UIImage? {
@@ -100,4 +84,5 @@ class Category: NSObject {
         return image
         
     }
+
 }

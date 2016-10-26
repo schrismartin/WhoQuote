@@ -110,20 +110,20 @@ import SnapKit
         if let label = twitterHandleLabel { self.addSubview(label) }
         
         // Adjust autolayout constraints
-        self.personImageView.snp_makeConstraints({ (make) in
+        self.personImageView.snp.makeConstraints({ (make) in
             make.top.equalTo(self).offset(4)
             make.left.equalTo(self).offset(4)
             make.bottom.equalTo(self).offset(-4)
-            make.width.equalTo(personImageView.snp_height)
+            make.width.equalTo(personImageView.snp.height)
         })
-        self.nameLabel.snp_makeConstraints { (make) in
+        self.nameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(7)
-            make.left.equalTo(personImageView.snp_right).offset(10)
+            make.left.equalTo(personImageView.snp.right).offset(10)
             make.right.equalTo(self).offset(-7)
         }
-        self.twitterHandleLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.nameLabel.snp_bottom).offset(0)
-            make.left.equalTo(personImageView.snp_right).offset(10)
+        self.twitterHandleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(0)
+            make.left.equalTo(personImageView.snp.right).offset(10)
             make.right.equalTo(self).offset(-7)
         }
     }

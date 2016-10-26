@@ -61,14 +61,14 @@ import UIKit
         self.addSubview(quoteLabel)
         
         // Make AutoLayout Constraints
-        self.logoImageView.snp_makeConstraints { (make) in
+        self.logoImageView.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(-40)
             make.bottom.equalTo(self).offset(40)
             make.left.equalTo(self).offset(-40)
-            make.width.equalTo(logoImageView.snp_height)
+            make.width.equalTo(logoImageView.snp.height)
         }
         
-        self.quoteLabel.snp_makeConstraints { (make) in
+        self.quoteLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(38)
             make.left.equalTo(self).offset(15)
             make.bottom.equalTo(self).offset(-38)

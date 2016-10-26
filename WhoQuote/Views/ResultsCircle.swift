@@ -73,7 +73,7 @@ import UIKit
         self.clipsToBounds = true
         self.addSubview(label)
         
-        label.snp_makeConstraints { (make) in
+        label.snp.makeConstraints { (make) in
             make.edges.equalTo(self).inset(UIEdgeInsetsMake(20, 20, 20, 20))
         }
     }
